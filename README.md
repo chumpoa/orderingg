@@ -1,11 +1,11 @@
-#grupo 7
+# grupo 7
 
-## Integrantes
+# Integrantes
 
-Juan Pablo Pardal
-Agustin Lucero
-Santiago Rudolf
-Santiago Gonzalez Rojas
+- Juan Pablo Pardal
+- Agustin Lucero
+- Santiago Rudolf
+- Santiago Gonzalez Rojas
 
 
 
