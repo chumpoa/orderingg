@@ -5,6 +5,8 @@ Agustin Lucero
 Santiago Rudolf
 Santiago Gonzalez Rojas
 
+# Numero de grupo 7
+
 
 
 
