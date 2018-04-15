@@ -1,3 +1,18 @@
+# Integrantes
+
+Juan Pablo Pardal
+Agustin Lucero
+Santiago Rudolf
+Santiago Gonzalez Rojas
+
+
+
+
+
+
+
+
+
 # Ordering
 
 Aplicación utilizada en la cursada 2018 de Ingenieria de Software. UTN-FRLP
@@ -63,4 +78,3 @@ $env:FLASK_APP="orderingg.py"
 $env:FLASK_DEBUG="1"
 flask run
 ```
-
