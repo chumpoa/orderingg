@@ -89,7 +89,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                     <td><b>ID</b></td>
                     <td><b>Nombre</b></td>
                     <td><b>Precio unitario</b></td>
-		    <td><b>Cantidad</b></td>
+		                <td><b>Cantidad</b></td>
                     <td><b>Precio total</b></td>
                 </tr>
             </thead>
@@ -97,7 +97,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                 {{# each products }}
                     <tr>
                         <td>{{ id }}</td>
-                        <td>{{ description }}</td>
+                        <td>{{ name }}</td>
                         <td>{{ price }}</td>
                         <td>{{ quantity }}</td>
                         <td>{{ totalPrice }}</td>
