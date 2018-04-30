@@ -84,6 +84,9 @@ const Modal = (function () {
         $modal.querySelector('#save-button')
             .addEventListener('click', config.onAddProduct);
 
+        $modal.querySelector('#edit-button')
+             .addEventListener('click', config.onEditProduct);
+
         return {
             close: close.bind(null, $modal),
             open: open.bind(null, $modal)

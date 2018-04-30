@@ -54,8 +54,27 @@
                     refs.modal.close();
                 }
             });
-    }
 
+    }
+      // edita un producto de una orden
+    function onEditProduct() {
+    const productId = document.getElementById('select-prod').value;
+
+           API.editProduct(1,productId, state.quantity, state.selectedProduct)
+            .then(function (r) {
+                if (r.error) {
+                    console.error(r.error);
+                } else {
+                    API.getOrder().then(function (data) {
+
+                        refs.table.update(data);
+                        alert ("El producto fue modificado exitosamente");
+                    });
+
+                    refs.modal.close();
+                }
+            });
+    }
     /**
      * Inicializa la aplicacion
      **/
@@ -65,7 +84,8 @@
             products: state.products,
             onProductSelect: onProductSelect,
             onChangeQunatity: onChangeQunatity,
-            onAddProduct: onAddProduct
+            onAddProduct: onAddProduct,
+            onEditProduct: onEditProduct,
         });
 
         // Inicializamos la tabla
