@@ -30,7 +30,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
         <div class="columns">
             <div class="column is-12">
 
-                <button class="button is-primary is-pulled-right" style="color: white; background-color: red" onclick="refs.modal.open()">
+                <button class="button is-primary is-pulled-right" style="color: white; background-color: red" onclick="refs.modal.open('1','')">
                     <span class="icon"><i class="fas fa-cart-plus"></i></span>
                     <span>Agregar</span>
                 </button>
@@ -45,7 +45,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p id="save-title" class="modal-card-title">Agregar producto</p>
-                    <p id="edit-title" hidden class="modal-card-title">Editar producto</p>
+                    <p id="edit-title" class="modal-card-title">Editar producto</p>
                     <button class="delete" aria-label="close" onclick="refs.modal.close()"></button>
                 </header>
                 <section class="modal-card-body">
@@ -103,7 +103,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         <td>{{ price }}</td>
                         <td>{{ quantity }}</td>
                         <td>{{ totalPrice }}</td>
-					<td><p class="buttons"  >
+					<td><p class="buttons" onclick="refs.modal.open('2',{{ id }})" >
                         <a class="button" >
                         <span class="icon is-small" >
                         <i class="fas fa-edit"></i>
