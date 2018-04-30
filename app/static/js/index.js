@@ -59,8 +59,9 @@
       // edita un producto de una orden
     function onEditProduct() {
     const productId = document.getElementById('select-prod').value;
+    const product = API.getOrderProduct(1,productId);
 
-           API.editProduct(1,productId, state.quantity, state.selectedProduct)
+           API.editProduct(1,productId, state.quantity, product)
             .then(function (r) {
                 if (r.error) {
                     console.error(r.error);
