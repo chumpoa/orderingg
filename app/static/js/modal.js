@@ -3,7 +3,7 @@ const Modal = (function () {
     /**
      * Abre el modal
      **/
-    function open($modal,caso) {
+    function open($modal,caso,producto) {
         const editTitle = document.getElementById('edit-title');
         const saveTitle = document.getElementById('save-title');
         const editButton = document.getElementById('edit-button');
@@ -26,26 +26,33 @@ const Modal = (function () {
         editButton.classList.remove('is-hidden');
         editTitle.classList.remove('is-hidden');
         $modal.classList.add('is-active');
+         API.getOrderProduct(1,producto).then(function (ProductoSeleccionado){            //completa los campos del modal con el producto seleccionado
+         document.getElementById('quantity').value=ProductoSeleccionado["quantity"];
+         var nombreProducto;
+         nombreProducto = ProductoSeleccionado["name"];
+         var valorSelect;
+         switch(nombreProducto) {
+         case "Silla":
+         valorSelect=1;
+         break;
+         case "Mesa":
+         valorSelect=2;
+         break;
+         case "Vaso":
+         valorSelect=3;
+         break;
+         case "Individual":
+         valorSelect=4;
+         break;}
+          document.getElementById("select-prod").value=valorSelect;
+         });
+
 
            break; }
 
     }
 
 
-    function openEdit($modal) {
-        const editTitle = document.getElementById('edit-title');
-        const saveTitle = document.getElementById('save-title');
-        const editButton = document.getElementById('edit-button');
-        const saveButton = document.getElementById('save-button');
-$modal.classList.add('is-active');
-        editButton.classList.remove('is-hidden');
-        editTitle.classList.remove('is-hidden');
-        saveButton.classList.add('is-hidden');
-        saveButton.classList.add ('is-hidden');
-
-        $modal.classList.add('is-active');
-
-        }
 
 
     /**
