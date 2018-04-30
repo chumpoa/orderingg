@@ -12,6 +12,7 @@ const Modal = (function () {
         switch(caso) {
         case "1":                                     //agrega un nuevo producto
 
+        document.getElementById('select-prod').disabled=false;
         editButton.classList.add('is-hidden');
         editTitle.classList.add('is-hidden');
         saveButton.classList.remove('is-hidden');
@@ -21,6 +22,7 @@ const Modal = (function () {
        break;
 
        case "2":                                    //edita un producto
+        document.getElementById('select-prod').disabled=true;
         saveButton.classList.add('is-hidden');
         saveTitle.classList.add('is-hidden');
         editButton.classList.remove('is-hidden');
