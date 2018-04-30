@@ -112,3 +112,9 @@ def order_product_detail(pk_order, pk_product):
             order.products.append(order_product)
         db.session.commit()
         return jsonify(order_product.serialize)
+
+@app.route("/order/<pk_order>/product/<pk_product>")
+def order_product_delete(pk_order,pk_product):
+    order_product = OrderProduct.query.filter(and_(OrderProduct.order_id==pk_order, OrderProduct.product_id==pk_product)).all()[0]
+    order.products.DELETE(order_product)
+    db.session.commit()
