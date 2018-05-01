@@ -59,7 +59,7 @@ const API = (function () {
      *
      */
 
-    function order_product_delete(orderId,productId) {
+    function productDelete(orderId,productId) {
         return fetch(`/order/${ orderId }/product/${ productId }`,
             {
                 method: 'DELETE',

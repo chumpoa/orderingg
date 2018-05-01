@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+
     <style>
 table {
     border-collapse: collapse;
@@ -108,9 +110,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         <span class="icon is-small" >
                         <i class="fas fa-edit"></i>
                     </span> </td>
-					<td> <button type="submit" method="DELETE" class="button" style="background-color:#F91F05" onclick="refs.api.order_product_delete('1',{{ id }})">
+					<td> <p class="buttons" onclick="refs.modal.open('2',{{ id }})" >
                             <span class="icon"><i class="fas fa-ban"></i></span>
-                            <span>Borrar linea</span>
+                            <span>Borrar </span>
                         </button></input>
       </form></td>
                        	</tr>
