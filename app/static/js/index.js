@@ -56,7 +56,7 @@
         API.addProduct(1, state.selectedProduct, state.quantity)
             .then(function (r) {
                 if (r.error) {
-                    console.error(r.error);
+                    alert("El producto ya existe en la orden");
                 } else {
                     API.getOrder().then(function (data) {
                         refs.table.update(data);
@@ -65,8 +65,28 @@
                     refs.modal.close();
                 }
             });
-    }
 
+    }
+      // edita un producto de una orden
+    function onEditProduct() {
+    const productId = document.getElementById('select-prod').value;
+    const product = API.getOrderProduct(1,productId);
+
+           API.editProduct(1,productId, state.quantity, product)
+            .then(function (r) {
+                if (r.error) {
+                    console.error(r.error);
+                } else {
+                    API.getOrder().then(function (data) {
+
+                        refs.table.update(data);
+                        alert ("El producto fue modificado exitosamente");
+                    });
+
+                    refs.modal.close();
+                }
+            });
+    }
     /**
      * Inicializa la aplicacion
      **/
@@ -76,7 +96,8 @@
             products: state.products,
             onProductSelect: onProductSelect,
             onChangeQunatity: onChangeQunatity,
-            onAddProduct: onAddProduct
+            onAddProduct: onAddProduct,
+            onEditProduct: onEditProduct,
         });
 
         // Inicializamos la tabla
