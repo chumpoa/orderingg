@@ -11,16 +11,6 @@
 
     const refs = {}
 
-    function productDelete(orderId,productId) {
-        return fetch(`/order/${ orderId }/product/${ productId }`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: data
-            }
 
     /**
      * Actualiza el valor del precio total
