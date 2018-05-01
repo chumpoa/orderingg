@@ -55,6 +55,26 @@ const API = (function () {
     }
 
     /**
+     * Borra un producto de una orden
+     *
+     */
+
+    function order_product_delete(orderId,productId) {
+        return fetch(`/order/${ orderId }/product/${ productId }`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            }
+        ).then(function toJson(r) {
+            return r.json();
+        });
+    }
+
+    /**
      * Agrega un producto a una orden
      **/
     function addProduct(orderId, product, quantity) {

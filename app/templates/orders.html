@@ -108,11 +108,11 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         <span class="icon is-small" >
                         <i class="fas fa-edit"></i>
                     </span> </td>
-					<td><p class="buttons" >
-                        <a href="{{url_for('order_product_delete', pk_product=row['id'], pk_order=1 )}}">
-                        <span class="icon is-small">
-                        <i class="fas fa-trash-alt"></i>
-                     </span> </td>
+					<td> <button type="submit" method="DELETE" class="button" style="background-color:#F91F05" onclick="refs.api.order_product_delete('1',{{ id }})">
+                            <span class="icon"><i class="fas fa-ban"></i></span>
+                            <span>Borrar linea</span>
+                        </button></input>
+      </form></td>
                        	</tr>
                 {{/ each }}
             </tbody>

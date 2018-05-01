@@ -84,7 +84,7 @@ def addProductToOrder(pk):
 
     return jsonify(order.serialize), 201
 
-@app.route("/order/<pk_order>/product/<pk_product>", methods=['GET', 'PUT'])
+@app.route("/order/<pk_order>/product/<pk_product>", methods=['GET', 'PUT', 'DELETE'])
 def order_product_detail(pk_order, pk_product):
     """
     Obtiene un producto de una orden y modifica un producto de una orden
@@ -94,6 +94,9 @@ def order_product_detail(pk_order, pk_product):
     """
 
     order_product = OrderProduct.query.filter(and_(OrderProduct.order_id==pk_order, OrderProduct.product_id==pk_product)).all()[0]
+    if request.method == 'DELETE' :
+            db.session.delete(order_product)
+            db.session.commit()
 
     if (not order_product):
         return jsonify({ 'error': 'not-found' }), 404
@@ -115,6 +118,7 @@ def order_product_detail(pk_order, pk_product):
 
 @app.route("/order/<pk_order>/product/<pk_product>")
 def order_product_delete(pk_order,pk_product):
+    pk_order=1
     order_product = OrderProduct.query.filter(and_(OrderProduct.order_id==pk_order, OrderProduct.product_id==pk_product)).all()[0]
-    order.products.DELETE(order_product)
+    db.session.delete(order_product)
     db.session.commit()
