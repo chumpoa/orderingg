@@ -18,6 +18,8 @@ const Modal = (function () {
         saveButton.classList.remove('is-hidden');
         saveTitle.classList.remove('is-hidden');
         $modal.classList.add('is-active');
+        document.getElementById("select-prod").value="";
+        document.getElementById('quantity').value="";
 
        break;
 
