@@ -60,14 +60,15 @@ const API = (function () {
      */
 
     function productDelete(orderId,productId) {
+
         return fetch(`/order/${ orderId }/product/${ productId }`,
+
             {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: data
             }
         ).then(function toJson(r) {
             return r.json();
@@ -99,6 +100,8 @@ const API = (function () {
         getProducts,
         getOrderProduct,
         editProduct,
+        productDelete,
         addProduct
+
     }
 })()
