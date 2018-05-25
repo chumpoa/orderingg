@@ -114,11 +114,7 @@ const API = (function () {
         getProducts,
         getOrderProduct,
         editProduct,
-<<<<<<< HEAD
-        productDelete,
-=======
         deleteProduct,
->>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
         addProduct
 
     }

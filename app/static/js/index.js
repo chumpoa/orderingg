@@ -125,11 +125,7 @@
             onProductSelect: onProductSelect,
             onChangeQunatity: onChangeQunatity,
             onAddProduct: onAddProduct,
-<<<<<<< HEAD
-            onEditProduct: onEditProduct,
-=======
             onEditProduct: onEditProduct
->>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
         });
 
         // Inicializamos la tabla

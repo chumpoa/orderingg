@@ -60,15 +60,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         <div class="field">
                             <label class="label">Cantidad</label>
                             <div class="control">
-<<<<<<< HEAD
-
-
-                                <input id="quantity" class="input" type="number" min="0">
-
-=======
                                 <input id="quantity" class="input" type="number" min="1" value="1" required>
                                 <p class="help is-danger is-hidden">Por favor ingrese un numero mayor a 0</p>
->>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
                             </div>
                         </div>
 
@@ -93,22 +86,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
         <table class="table is-fullwidth is-hoverable">
             <thead>
                 <tr>
-<<<<<<< HEAD
-                    <td><b>ID</b></td>
-                    <td><b>Nombre</b></td>
-                    <td><b>Precio unitario</b></td>
-		                <td><b>Cantidad</b></td>
-                    <td><b>Precio total</b></td>
-					<td>Editar </td>
-					<td>Borrar</td>
-=======
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio unitario</th>
                     <th>Cantidad</th>
                     <th>Precio total</th>
                     <th></th>
->>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
                 </tr>
             </thead>
             <tbody>
@@ -119,20 +102,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         <td>{{ price }}</td>
                         <td>{{ quantity }}</td>
                         <td>{{ totalPrice }}</td>
-<<<<<<< HEAD
-					<td><p class="buttons" onclick="refs.modal.open('2',{{ id }})" >
-                        <a class="button" >
-                        <span class="icon is-small" >
-                        <i class="fas fa-edit"></i>
-                    </span> </td>
-					<td> <p class="buttons" onclick="API.productDelete('1',{{ id }})" >
-            <a class="button" >
-            <span class="icon is-small" >
-            <i class="fas fa-trash"></i>
-                        </button></input>
-      </form></td>
-                       	</tr>
-=======
                         <td>
                             <button class="button is-small is-warning" onClick="refs.modal.openEdit({ id: {{ id }}, quantity: {{ quantity }} })">
                                 <i class="fa fa-edit"></i>
@@ -143,7 +112,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                             </button>
                         </td>
                     </tr>
->>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
                 {{/ each }}
             </tbody>
             <tfoot>
