@@ -60,10 +60,15 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         <div class="field">
                             <label class="label">Cantidad</label>
                             <div class="control">
+<<<<<<< HEAD
 
 
                                 <input id="quantity" class="input" type="number" min="0">
 
+=======
+                                <input id="quantity" class="input" type="number" min="1" value="1" required>
+                                <p class="help is-danger is-hidden">Por favor ingrese un numero mayor a 0</p>
+>>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
                             </div>
                         </div>
 
@@ -73,7 +78,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                     </form>
                 </section>
                 <footer class="modal-card-foot">
-                    <button id="save-button" class="button is-success">Guardar</button>
+                    <button id="save-button" class="button is-success" disabled="disabled">Guardar</button>
                     <button id="edit-button" class="button is-warning">Editar</button>
                     <button class="button" onclick="refs.modal.close()">Cancelar</button>
                 </footer>
@@ -88,6 +93,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
         <table class="table is-fullwidth is-hoverable">
             <thead>
                 <tr>
+<<<<<<< HEAD
                     <td><b>ID</b></td>
                     <td><b>Nombre</b></td>
                     <td><b>Precio unitario</b></td>
@@ -95,6 +101,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                     <td><b>Precio total</b></td>
 					<td>Editar </td>
 					<td>Borrar</td>
+=======
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio unitario</th>
+                    <th>Cantidad</th>
+                    <th>Precio total</th>
+                    <th></th>
+>>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
                 </tr>
             </thead>
             <tbody>
@@ -105,6 +119,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         <td>{{ price }}</td>
                         <td>{{ quantity }}</td>
                         <td>{{ totalPrice }}</td>
+<<<<<<< HEAD
 					<td><p class="buttons" onclick="refs.modal.open('2',{{ id }})" >
                         <a class="button" >
                         <span class="icon is-small" >
@@ -117,6 +132,18 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                         </button></input>
       </form></td>
                        	</tr>
+=======
+                        <td>
+                            <button class="button is-small is-warning" onClick="refs.modal.openEdit({ id: {{ id }}, quantity: {{ quantity }} })">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button class="button is-small is-danger" onClick="refs.global.onDeleteProduct({{ id }})">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+>>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
                 {{/ each }}
             </tbody>
             <tfoot>
@@ -126,6 +153,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                     <td></td>
                     <td>Total</td>
                     <td>{{ orderPrice }}</td>
+                    <td></td>
                 </tr>
             </tfoot>
         </table>
@@ -134,13 +162,15 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     <!-- Template handlebars del select de productos -->
     <script id="select-template" type="text/x-handlebars-template">
         <div class="select">
-            <select id="select-prod">
+            <select id="select-prod" required>
                 <option disabled selected value="">Seleccione un producto</option>
                 {{# each products }}
                     <option value="{{ id }}">{{ name }}</option>
                 {{/ each }}
             </select>
         </div>
+
+        <p class="help is-danger is-hidden"></p>
     </script>
     {% endraw %}
 </body>

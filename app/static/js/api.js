@@ -54,6 +54,20 @@ const API = (function () {
         });
     }
 
+    function deleteProduct(orderId, productId) {
+        return fetch(`/order/${ orderId }/product/${ productId }`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(function toJson(r) {
+            return r.json();
+        });
+    }
+
     /**
      * Borra un producto de una orden
      *
@@ -100,7 +114,11 @@ const API = (function () {
         getProducts,
         getOrderProduct,
         editProduct,
+<<<<<<< HEAD
         productDelete,
+=======
+        deleteProduct,
+>>>>>>> eb9d9361f2be5c1c001111a9e8fc0015a7e2c739
         addProduct
 
     }
