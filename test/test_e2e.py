@@ -74,7 +74,15 @@ class Ordering(unittest.TestCase):
         self.assertNotEqual(nombre, ''), 'no hay elementos en el modal'
         self.assertNotEquals(cantidad, ''), 'no hay elementos en el modal'
 
+    def test_borrar(self):
+        driver = self.driver
+        driver.get(self.baseURL)
+        time.sleep(10)
 
+        botonBorrar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[2]')
+        botonBorrar.click()
+        time.sleep(5)
+        
 
 if __name__ == "__main__":
     unittest.main()
