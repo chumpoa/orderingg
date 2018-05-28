@@ -57,6 +57,7 @@ class Ordering(unittest.TestCase):
     def test_modal_editar(self):
         driver = self.driver
         driver.get(self.baseURL)
+        time.sleep(10)
         orden = Order(id=1)
         db.session.add(orden)
         producto = Product(id=1, name='articulo', price=100)
@@ -66,12 +67,13 @@ class Ordering(unittest.TestCase):
         db.session.commit()
         botoneditar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[1]')
         botoneditar.click()
-        time.sleep(10)
+        time.sleep(5)
         nombre = driver.find_element_by_id('select-prod')
         cantidad = driver.find_element_by_id('quantity')
-        time.sleep(10)
-        Assert.assertNotNul(nombre, cantidad), 'no hay elementos en el modal'
-        time.sleep(10)
+        time.sleep(5)
+        self.assertNotEqual(nombre, ''), 'no hay elementos en el modal'
+        self.assertNotEquals(cantidad, ''), 'no hay elementos en el modal'
+
 
 
 if __name__ == "__main__":
