@@ -1,0 +1,4 @@
+{
+  "test/test_e2e.py::Ordering::test_title": true,
+  "test/test_unit.py::OrderingTestCase::test_delete": true
+}
