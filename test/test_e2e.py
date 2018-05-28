@@ -74,7 +74,31 @@ class Ordering(unittest.TestCase):
         self.assertNotEqual(nombre, ''), 'no hay elementos en el modal'
         self.assertNotEquals(cantidad, ''), 'no hay elementos en el modal'
 
+    def test_cantidades_negativas(self):
+        #Creamos una orden
+        orden = Order(id=1)
+        #Cargamos la orden
+        db.session.add(orden)
+        #Agregamos un poducto para poder probar el boton
+        producto = Product(id=1, name='test', price=100)
+        db.session.add(producto)
+        db.session.commit()
 
+        driver = self.driver
+        driver.get(self.baseURL)
+
+        #clicea en boton agregar
+        boton_agregar = driver.find_element_by_xpath('/html/body/main/div[1]/div/button')
+        boton_agregar.click()
+        #Dentro del modal agregar selecciona el producto a agregar
+        boton_seleccionar = driver.find_element_by_xpath('//*[@id="select-prod"]/option[2]')
+        boton_seleccionar.click()
+        #Despues selecciona la cantidad y asigna una cantidad negativa
+        boton_cantidad = driver.find_element_by_id('quantity')
+        boton_cantidad.clear()
+        boton_cantidad.send_keys("-4")
+        #debajo de la cantidad se ve el mensaje
+        time.sleep(10)
 
 if __name__ == "__main__":
     unittest.main()
