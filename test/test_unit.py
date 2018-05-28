@@ -70,7 +70,7 @@ class OrderingTestCase(TestCase):
 
         orden = {
 
-            "id" : 1
+            "id": 1
         }
 
         orden = Order()
@@ -99,6 +99,32 @@ class OrderingTestCase(TestCase):
 
         resp= self.client.post('/product', data=json.dumps(producto), content_type='application/json')
         assert resp.status_code != 201, "El producto puede ser vacio"
-        
+
+    def test_productos_negativos(self):
+        #Cramos un producto
+        producto = {
+            'id': 1,
+            'name': 'Producto test',
+            'price': 100
+        }
+
+        self.client.post('/product', data=json.dumps(producto), content_type='application/json')
+        #Creamos una orden
+        orden = {
+            'id': 1
+        }
+
+        #Cargamos la orden
+        self.client.post('/order', data=json.dumps(orden), content_type='application/json')
+
+        #Generamos un producto para agregar a la orden con cantidad negativa
+        producto_orden =  {"quantity":-100,"product":{"id":1}}
+
+        #Cargamos el producto a la orden
+        resultado = self.client.post('/order/1/product/', data=json.dumps(producto_orden), content_type='application/json')
+
+        #Tiene que tirar el error
+        assert resultado.status_code != 201, "La cantidad no puede ser negativa"
+
 if __name__ == '__main__':
     unittest.main()

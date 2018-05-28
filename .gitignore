@@ -4,3 +4,5 @@ __pycache_/
 
 app.db
 test.db
+Correr aplicacion.bat
+.pytest_cache
