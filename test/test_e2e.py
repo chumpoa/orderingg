@@ -74,6 +74,7 @@ class Ordering(unittest.TestCase):
         self.assertNotEqual(nombre, ''), 'no hay elementos en el modal'
         self.assertNotEquals(cantidad, ''), 'no hay elementos en el modal'
 
+
     def test_cantidades_negativas(self):
         #Creamos una orden
         orden = Order(id=1)
@@ -99,6 +100,16 @@ class Ordering(unittest.TestCase):
         boton_cantidad.send_keys("-4")
         #debajo de la cantidad se ve el mensaje
         time.sleep(10)
+
+    def test_borrar(self):
+        driver = self.driver
+        driver.get(self.baseURL)
+        time.sleep(10)
+
+        botonBorrar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[2]')
+        botonBorrar.click()
+        time.sleep(5)
+
 
 if __name__ == "__main__":
     unittest.main()
