@@ -99,7 +99,8 @@ class Ordering(unittest.TestCase):
         boton_cantidad.clear()
         boton_cantidad.send_keys("-4")
         #debajo de la cantidad se ve el mensaje
-        time.sleep(10)
+        mensaje = driver.find_element_by_xpath('//*[@id="modal"]/div[2]/section/form/div[2]/div/p')
+        self.assertTrue(mensaje.is_displayed())
 
     def test_borrar(self):
         driver = self.driver
