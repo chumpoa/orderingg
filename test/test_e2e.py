@@ -105,11 +105,26 @@ class Ordering(unittest.TestCase):
     def test_borrar(self):
         driver = self.driver
         driver.get(self.baseURL)
-        time.sleep(10)
-
+        orden = Order(id= 1)
+        db.session.add(orden)
+        producto = Product(id= 1, name= 'Test', price= 100)
+        db.session.add(producto)
+        ordenProducto =  OrderProduct(order_id=1,product_id=1,quantity=1)
+        db.session.add(ordenProducto)
+        db.session.commit()
+        
+        driver.get(self.baseURL)
+        
+      	#Agarro nombre de tabla antes de borrar
+        nombre1=driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]').text
         botonBorrar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[2]')
         botonBorrar.click()
-        time.sleep(5)
+        time.sleep(2)
+        driver.get(self.baseURL)
+        #Agarro el nombre de la tabla despues de borrar
+        nombre2=driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]').text
+        #Comparo si son distintos
+        assert nombre1!=nombre2, "Fallo el test, no se borro correctamente"
 
 
 if __name__ == "__main__":
