@@ -95,10 +95,9 @@ class OrderingTestCase(TestCase):
         orderProduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
         db.session.add(orderProduct)
         db.session.commit()
-        self.client.delete('/order/1/product/1', content_type='application/json')
-        resp = self.client.get('/order/1')
-        data = json.loads(resp.data)
-        self.assertEqual(len(data["products"]), 0, "Hay productos, fallo el test")
+        resp = self.client.delete('/order/1/product/1', content_type='application/json')
+        assert resp.status_code == 200, "Erorr en DELETE"
+        assert OrderProduct.query.limit(1).all() == [], "No borro el producto"
 
 
 
@@ -110,39 +109,33 @@ class OrderingTestCase(TestCase):
             'price': 50
         }
 
-        #Agregamos el producto a la orden
 
-        resp = self.client.post('/product', data=json.dumps(producto), content_type='application/json')
         assert producto["name"] != '', "El producto esta vacio"
-        assertNotEqual(resp.status_code, 200, "El producto esta vacio")
-        
+        orden = Order(id=1)
+        db.session.add(orden)
+        producto = Product(id=1, name='articulo', price=100)
+        db.session.add(producto)
+        orderProduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
+        db.session.add(orderProduct)
+        db.session.commit()
+
 
     def test_productos_negativos(self):
         #Cramos un producto
-        producto = {
-            'id': 1,
-            'name': 'Producto test',
-            'price': 100
-        }
 
-        self.client.post('/product', data=json.dumps(producto), content_type='application/json')
-        #Creamos una orden
-        orden = {
-            'id': 1
-        }
 
-        #Cargamos la orden
-        self.client.post('/order', data=json.dumps(orden), content_type='application/json')
+        orden = Order(id=1)
+        db.session.add(orden)
+        producto = Product(id=1, name='articulo', price=100)
+        db.session.add(producto)
+        orderProduct = OrderProduct(order_id=1, product_id=1, quantity=-10, product=producto)
+        db.session.add(orderProduct)
+        db.session.commit()
 
-        #Generamos un producto para agregar a la orden con cantidad negativa
-        producto_orden =  {"quantity":-100,"product":{"id":1}}
-
-        #Cargamos el producto a la orden
-        resultado = self.client.post('/order/1/product/', data=json.dumps(producto_orden), content_type='application/json')
 
         #Tiene que tirar el error
-        assert producto_orden["quantity"] > 0,  "La cantidad no puede ser negativa"
-        assert resultado.status_code != 201, "La cantidad no puede ser negativa"
+        cantidad = orderProduct.quantity
+        assert cantidad > 0,  "La cantidad no puede ser negativa"
 
     def test_metodo_GET(self):
         #Cargamos datos a la base para probar el metodo get
