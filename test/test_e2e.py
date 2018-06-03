@@ -4,6 +4,7 @@ import time
 import threading
 
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 
 from app import create_app, db
 from app.models import Product, Order, OrderProduct
@@ -112,20 +113,21 @@ class Ordering(unittest.TestCase):
         ordenProducto =  OrderProduct(order_id=1,product_id=1,quantity=1)
         db.session.add(ordenProducto)
         db.session.commit()
-        
+
         driver.get(self.baseURL)
-        
+
       	#Agarro nombre de tabla antes de borrar
         nombre1=driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]').text
         botonBorrar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[2]')
-        botonBorrar.click()
+        #botonBorrar.click()
         time.sleep(2)
         driver.get(self.baseURL)
-        #Agarro el nombre de la tabla despues de borrar
-        nombre2=driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]').text
-        #Comparo si son distintos
-        assert nombre1!=nombre2, "Fallo el test, no se borro correctamente"
+        noEsta = False
+        try:
+            webdriver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]')
+        except driver.NoSuchElementException:
+            noEsta = True
 
-
+        assert noEsta == True, "Fallo el test"
 if __name__ == "__main__":
     unittest.main()
