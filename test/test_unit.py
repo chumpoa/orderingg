@@ -110,14 +110,17 @@ class OrderingTestCase(TestCase):
         }
 
 
-        assert producto["name"] != '', "El producto esta vacio"
+
         orden = Order(id=1)
         db.session.add(orden)
         producto = Product(id=1, name='articulo', price=100)
+        nombre = producto.name
         db.session.add(producto)
         orderProduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
         db.session.add(orderProduct)
         db.session.commit()
+        assert producto["name"] != '', "El producto esta vacio"
+        assert nombre != '', "El producto esta vacio"
 
 
     def test_productos_negativos(self):

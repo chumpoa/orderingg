@@ -116,16 +116,18 @@ class Ordering(unittest.TestCase):
 
         driver.get(self.baseURL)
 
-      	#Agarro nombre de tabla antes de borrar
+
+
         nombre1=driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]').text
         botonBorrar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[2]')
-        #botonBorrar.click()
+        botonBorrar.click()
         time.sleep(2)
+        driver.refresh()
         driver.get(self.baseURL)
         noEsta = False
         try:
             webdriver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]')
-        except driver.NoSuchElementException:
+        except NoSuchElementException:
             noEsta = True
 
         assert noEsta == True, "Fallo el test"
