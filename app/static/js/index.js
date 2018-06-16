@@ -18,7 +18,7 @@
     function updateTotalPrice() {
         try {
             const totalPrice = state.selectedProduct.price * state.quantity;
-            $totalPrice.innerHTML = `Precio total: $ ${totalPrice}`
+            $totalPrice.innerHTML = `Precio total: $ ${totalPrice}`;
         } catch (e) {
             $totalPrice.innerHTML = "";
         }
@@ -94,7 +94,7 @@
         API.editProduct(1,productId, state.quantity, product)
             .then(function (r) {
                 if (r.error) {
-                    console.log(r.error);
+                    alert ("Error en la orden");
                 } else {
                     API.getOrder().then(function (data) {
 
@@ -122,9 +122,9 @@
      **/
     function init() {
         refs.modal = Modal.init({
-            el: '#modal',
+            el: "#modal",
             products: state.products,
-            onProductSelect: onProductSelect,
+            onPrect: onProductSelect,
             onChangeQunatity: onChangeQunatity,
             onAddProduct: onAddProduct,
             onEditProduct: onEditProduct
@@ -132,7 +132,7 @@
 
         // Inicializamos la tabla
         refs.table = Table.init({
-            el: '#orders',
+            el: "#orders",
             data: state.order
         });
 
@@ -143,4 +143,4 @@
 
     init();
     window.refs = refs;
-})()
+})();
