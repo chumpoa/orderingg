@@ -11,6 +11,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class OrderingTestCase(TestCase):
     def create_app(self):
+        """Create app."""
+
         # config_name = 'testing'
         app = create_app()
         app.config.update(
@@ -22,22 +24,30 @@ class OrderingTestCase(TestCase):
 
     # Creamos la base de datos de test
     def setUp(self):
+        """Set up."""
+
         db.session.commit()
         db.drop_all()
         db.create_all()
 
     # Destruimos la base de datos de test
     def tearDown(self):
+        """Tear down."""
+
         db.session.remove()
         db.drop_all()
 
     def test_iniciar_sin_productos(self):
+        """Test iniciar sin producto."""
+
         resp = self.client.get('/product')
         data = json.loads(resp.data)
 
         assert len(data) == 0, "La base de datos tiene productos"
 
     def test_crear_producto(self):
+        """Test crear producto."""
+
         data = {
             'name': 'Tenedor',
             'price': 50
@@ -54,6 +64,7 @@ class OrderingTestCase(TestCase):
         self.assertEqual(len(p), 1, "No hay productos")
 
     def test_metodoPUT(self):
+        """Test metodo put."""
         # creo una orden y un producto
 
         orden = Order(id=1)
@@ -77,6 +88,7 @@ class OrderingTestCase(TestCase):
         # si el cambio impacto en la DB se pasa el test
 
     def test_totalPrice(self):
+        """Test total price."""
         orden = Order(id=1)
         db.session.add(orden)
         p = Product(id=1, name='articulo', price=100)
@@ -90,6 +102,7 @@ class OrderingTestCase(TestCase):
 
 
     def test_delete(self):
+        """Test delete."""
         orden = Order(id=1)
         db.session.add(orden)
         producto = Product(id=1, name='articulo', price=100)
@@ -105,6 +118,7 @@ class OrderingTestCase(TestCase):
 
 
     def test_nombre_vacio(self):
+        """Test nombre vacio."""
         producto = {
             'id': 1,
             'name': '',
@@ -124,8 +138,8 @@ class OrderingTestCase(TestCase):
 
 
     def test_productos_negativos(self):
-        #Cramos un producto
-
+        """Test productos negativos."""
+        # Cramos un producto
 
         orden = Order(id=1)
         db.session.add(orden)
@@ -135,30 +149,29 @@ class OrderingTestCase(TestCase):
         db.session.add(orderProduct)
         db.session.commit()
 
-
-        #Tiene que tirar el error
+        # Tiene que tirar el error
         cantidad = orderProduct.quantity
         assert cantidad > 0,  "La cantidad no puede ser negativa"
 
     def test_metodo_GET(self):
-        #Cargamos datos a la base para probar el metodo get
-        #Cramos un producto
-        #Creamos una orden
+        # Cargamos datos a la base para probar el metodo get#
+        # Cramos un producto#
+        # Creamos una orden#
         orden = Order(id=1)
-        #Cargamos la orden
+        # Cargamos la orden
         db.session.add(orden)
-        #Agregamos un poducto
+        # Agregamos un poducto#
         producto = Product(id=1, name='test', price=100)
         db.session.add(producto)
-        #Agregamos el producto a la orden
+        # Agregamos el producto a la orden
         producto_orden = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
         db.session.add(producto_orden)
-        #Se termina de cargar un producto a la orden
+        # S e termina de cargar un producto a la orden
 
-        #Se comienza a probar el metodo GET
+        # Se comienza a probar el metodo GET
         resp = self.client.get('/order/1/product/1')
 
-        #Si el metodo GET funciona correctamente entonces la respuesta sera 200 entonces
+        # Si el metodo GET funciona correctamente entonces la respuesta sera 200 entonces
         assert resp.status_code == 200, "El metodo GET no funciona"
         data = json.loads(resp.data)
         assert data["id"] == 1, "El id no es el esperado"
@@ -169,18 +182,22 @@ class OrderingTestCase(TestCase):
 
     def test_borrar(self):
 
-        orden = Order(id= 1)
+        """Test Borrar."""
+
+        orden = Order(id=1)
         db.session.add(orden)
         producto = Product(id=1, name='Producto', price=10)
         db.session.add(producto)
-        ordendeproducto = OrderProduct(order_id= 1, product_id= 1, quantity= 1, product= producto)
+        ordendeproducto = OrderProduct(order_id=1, product_id=1, quantity=1, product=producto)
         db.session.add(ordendeproducto)
         db.session.commit()
         driver = self.driver
         driver.get(self.baseURL)
-        btn = driver.find_element_by_xpath('/html/body/main/div[2]/div/table/tbody/tr[1]/td[6]/button[2]')
+        btnelem = '/html/body/main/div[2]/div/table/tbody/tr[1]/td[6]/button[2]'
+        btn = driver.find_element_by_xpath(btnelem)
         btn.click()
-        self.assertRaises(NoSuchElementException, driver.find_element_by_xpath, '//*[@id="orders"]/table/tbody/tr')
+        xpath = '//*[@id="orders"]/table/tbody/tr'
+        self.assertRaises(NoSuchElementException, driver.find_element_by_xpath, xpath)
 
 
 if __name__ == '__main__':
