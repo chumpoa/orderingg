@@ -18,7 +18,7 @@ class Ordering(unittest.TestCase):
     def setUp(self):
         self.app = create_app()
         self.app.config.update(
-            SQLALCHEMY_DATABASE_URI='sqlite:///'+ os.path.join(basedir, 'test.db'),
+            SQLALCHEMY_DATABASE_URI='sqlite:///' + os.path.join(basedir, 'test.db'),
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
             TESTING=True
         )
@@ -40,7 +40,7 @@ class Ordering(unittest.TestCase):
         self.driver = webdriver.Chrome()
 
     def test_title(self):
-        bAdd = ''/html/body/main/div[1]/div/button''
+        bAdd = '/html/body/main/div[1]/div/button'
         driver = self.driver
         driver.get(self.baseURL)
         add_product_button = driver.find_element_by_xpath(bAdd)
@@ -57,7 +57,7 @@ class Ordering(unittest.TestCase):
         self.app_context.pop()
 
     def test_modal_editar(self):
-        bEdit = ''//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[1]''
+        bEdit = '//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[1]'
         driver = self.driver
         driver.get(self.baseURL)
         time.sleep(10)

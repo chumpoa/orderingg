@@ -4,6 +4,7 @@ from app import create_app, db
 app = create_app()
 app.app_context().push()
 
+
 def addOrders():
     orders = Order.query.all()
 
@@ -39,13 +40,14 @@ def addOrders():
             order = Order()
 
             for product in order_data['products']:
-                orderProduct = OrderProduct(quantity=product['quantity'])
-                orderProduct.product = Product.query.get(product['id'])
-                order.products.append(orderProduct)
+                orderproduct = OrderProduct(quantity=product['quantity'])
+                orderproduct.product = Product.query.get(product['id'])
+                order.products.append(orderproduct)
 
             db.session.add(order)
 
         db.session.commit()
+
 
 def addProducts():
     products = Product.query.all()
@@ -59,6 +61,7 @@ def addProducts():
         p = Product(name="Individual", price=250)
         db.session.add(p)
         db.session.commit()
+        
 
 if __name__ == '__main__':
     addProducts()
