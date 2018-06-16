@@ -11,7 +11,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class OrderingTestCase(TestCase):
     def create_app(self):
-        config_name = 'testing'
+        # config_name = 'testing'
         app = create_app()
         app.config.update(
             SQLALCHEMY_DATABASE_URI='sqlite:///' + os.path.join(basedir, 'test.db'),
@@ -43,32 +43,32 @@ class OrderingTestCase(TestCase):
             'price': 50
         }
 
-        resp = self.client.post('/product', data=json.dumps(data), content_type='application/json')
+        app = 'application/json'
+
+        resp = self.client.post('/product', data=json.dumps(data), content_type=app)
 
         # Verifica que la respuesta tenga el estado 200 (OK)
         self.assert200(resp, "Fallo el POST")
         p = Product.query.all()
-
-
         # Verifica que en la lista de productos haya un solo producto
         self.assertEqual(len(p), 1, "No hay productos")
 
-
     def test_metodoPUT(self):
-       #creo una orden y un producto
+        # creo una orden y un producto
+
         orden = Order(id=1)
         db.session.add(orden)
         producto = Product(id=1, name='articulo', price=100)
         db.session.add(producto)
 
-    #creo un orderProduct
-        orderProduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
-        db.session.add(orderProduct)
+        # creo un orderProduct
+        orderproduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
+        db.session.add(orderproduct)
         db.session.commit()
 
        #se realiza un cambio en la DB
-        orderProduct = {"quantity": 6, "product": {"id": 1}}
-        self.client.put('/order/1/product/1', data=json.dumps(orderProduct), content_type='application/json')
+        orderproduct = {"quantity": 6, "product": {"id": 1}}
+        self.client.put('/order/1/product/1', data=json.dumps(orderproduct), content_type='application/json')
         resp = self.client.get('/order/1/product/1')
         productoA=json.loads(resp.data)
         assert productoA['quantity'] == 6, "fallo el metodo PUT" #si el cambio impacto en la DB se pasa el test
@@ -79,12 +79,12 @@ class OrderingTestCase(TestCase):
         db.session.add(orden)
         producto = Product(id=1, name='articulo', price=100)
         db.session.add(producto)
-        orderProduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
-        db.session.add(orderProduct)
+        orderproduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
+        db.session.add(orderproduct)
         db.session.commit()
         resp = self.client.get('/order/1/product/1')
-        productoA = json.loads(resp.data)
-        assert productoA['totalPrice'] == 500, "el precio no se calcula correctamente"
+        productoa = json.loads(resp.data)
+        assert productoa['totalPrice'] == 500, "precio mal calculado"
 
 
     def test_delete(self):
@@ -108,8 +108,6 @@ class OrderingTestCase(TestCase):
             'name': '',
             'price': 50
         }
-
-
 
         orden = Order(id=1)
         db.session.add(orden)
@@ -167,17 +165,14 @@ class OrderingTestCase(TestCase):
         assert data["quantity"] == 5, "La cantidad no es el esperado"
         assert data["totalPrice"] == 500, "El totalPrice no es el esperado"
 
-
-
-
     def test_borrar(self):
 
         orden = Order(id= 1)
         db.session.add(orden)
-        producto = Product(id= 1, name= 'Producto', price= 10)
+        producto = Product(id=1, name='Producto', price=10)
         db.session.add(producto)
-        OrdenDeProducto = OrderProduct(order_id= 1, product_id= 1, quantity= 1, product= producto)
-        db.session.add(OrdenDeProducto)
+        ordendeproducto = OrderProduct(order_id= 1, product_id= 1, quantity= 1, product= producto)
+        db.session.add(ordendeproducto)
         db.session.commit()
         driver = self.driver
         driver.get(self.baseURL)
