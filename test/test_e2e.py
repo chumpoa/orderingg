@@ -1,3 +1,4 @@
+"""Test e2e."""
 import unittest
 import os
 import time
@@ -5,20 +6,24 @@ import threading
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+# from werkzeug.serving import make_server
 
 from app import create_app, db
 from app.models import Product, Order, OrderProduct
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-from werkzeug.serving import make_server
 
 class Ordering(unittest.TestCase):
+    """Clase Orderingg."""
+
     # Creamos la base de datos de test
     def setUp(self):
+        """Set Up."""
+        db = 'test.db'
         self.app = create_app()
         self.app.config.update(
-            SQLALCHEMY_DATABASE_URI='sqlite:///' + os.path.join(basedir, 'test.db'),
+            SQLALCHEMY_DATABASE_URI='sqlite:///' + os.path.join(basedir, db),
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
             TESTING=True
         )
@@ -40,14 +45,17 @@ class Ordering(unittest.TestCase):
         self.driver = webdriver.Chrome()
 
     def test_title(self):
+        """Test titulo."""
         driver = self.driver
         driver.get(self.baseURL)
-        add_product_button = driver.find_element_by_xpath('/html/body/main/div[1]/div/button')
+        prodboton = '/html/body/main/div[1]/div/button'
+        add_product_button = driver.find_element_by_xpath(prodboton)
         add_product_button.click()
         modal = driver.find_element_by_id('modal')
         assert modal.is_displayed(), "El modal no esta visible"
 
     def tearDown(self):
+        """Tear Down."""
         self.driver.get('http://localhost:5000/shutdown')
 
         db.session.remove()
@@ -56,17 +64,19 @@ class Ordering(unittest.TestCase):
         self.app_context.pop()
 
     def test_modal_editar(self):
+        """Test modal editar."""
         driver = self.driver
         driver.get(self.baseURL)
         time.sleep(10)
         orden = Order(id=1)
         db.session.add(orden)
-        producto = Product(id=1, name='articulo', price=100)
-        db.session.add(producto)
-        orderProduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
-        db.session.add(orderProduct)
+        prod = Product(id=1, name='articulo', price=100)
+        db.session.add(prod)
+        op = OrderProduct(order_id=1, product_id=1, quantity=5, product=prod)
+        db.session.add(op)
         db.session.commit()
-        botoneditar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[1]')
+        editbtn = '//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[1]'
+        botoneditar = driver.find_element_by_xpath(editbtn)
         botoneditar.click()
         time.sleep(5)
         nombre = driver.find_element_by_id('select-prod')
@@ -75,13 +85,13 @@ class Ordering(unittest.TestCase):
         self.assertNotEqual(nombre, ''), 'no hay elementos en el modal'
         self.assertNotEquals(cantidad, ''), 'no hay elementos en el modal'
 
-
     def test_cantidades_negativas(self):
-        #Creamos una orden
+        """Cantidades negativas test."""
+        # Creamos una orden #
         orden = Order(id=1)
-        #Cargamos la orden
+        # Cargamos la orden #
         db.session.add(orden)
-        #Agregamos un poducto para poder probar el boton
+        # Agregamos un poducto para poder probar el boton
         producto = Product(id=1, name='test', price=100)
         db.session.add(producto)
         db.session.commit()
@@ -89,47 +99,48 @@ class Ordering(unittest.TestCase):
         driver = self.driver
         driver.get(self.baseURL)
 
-        #clicea en boton agregar
-        boton_agregar = driver.find_element_by_xpath('/html/body/main/div[1]/div/button')
+        # clicea en boton agregar
+        agregabtn = '/html/body/main/div[1]/div/button'
+        boton_agregar = driver.find_element_by_xpath(agregabtn)
         boton_agregar.click()
-        #Dentro del modal agregar selecciona el producto a agregar
-        boton_seleccionar = driver.find_element_by_xpath('//*[@id="select-prod"]/option[2]')
+        elesele = '//*[@id="select-prod"]/option[2]'
+        boton_seleccionar = driver.find_element_by_xpath(elesele)
         boton_seleccionar.click()
-        #Despues selecciona la cantidad y asigna una cantidad negativa
         boton_cantidad = driver.find_element_by_id('quantity')
         boton_cantidad.clear()
         boton_cantidad.send_keys("-4")
-        #debajo de la cantidad se ve el mensaje
-        mensaje = driver.find_element_by_xpath('//*[@id="modal"]/div[2]/section/form/div[2]/div/p')
+        elemen = '//*[@id="modal"]/div[2]/section/form/div[2]/div/p'
+        mensaje = driver.find_element_by_xpath(elemen)
         self.assertTrue(mensaje.is_displayed())
 
     def test_borrar(self):
+        """Test Borrar."""
         driver = self.driver
         driver.get(self.baseURL)
-        orden = Order(id= 1)
+        orden = Order(id=1)
         db.session.add(orden)
-        producto = Product(id= 1, name= 'Test', price= 100)
+        producto = Product(id=1, name='Test', price=100)
         db.session.add(producto)
-        ordenProducto =  OrderProduct(order_id=1,product_id=1,quantity=1)
-        db.session.add(ordenProducto)
+        ordenproducto = OrderProduct(order_id=1, product_id=1, quantity=1)
+        db.session.add(ordenproducto)
         db.session.commit()
 
         driver.get(self.baseURL)
-
-
-
-        nombre1=driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]').text
-        botonBorrar = driver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[2]')
-        botonBorrar.click()
+        eleborrar = '//*[@id="orders"]/table/tbody/tr[1]/td[6]/button[2]'
+        botonborrar = driver.find_element_by_xpath(eleborrar)
+        botonborrar.click()
         time.sleep(2)
         driver.refresh()
         driver.get(self.baseURL)
-        noEsta = False
+        noesta = False
         try:
-            webdriver.find_element_by_xpath('//*[@id="orders"]/table/tbody/tr[1]/td[2]')
+            ele = '//*[@id="orders"]/table/tbody/tr[1]/td[2]'
+            webdriver.find_element_by_xpath(ele)
         except NoSuchElementException:
-            noEsta = True
+            noesta = True
 
-        assert noEsta == True, "Fallo el test"
+        assert noesta == True, "Fallo el test"
+
+
 if __name__ == "__main__":
     unittest.main()
