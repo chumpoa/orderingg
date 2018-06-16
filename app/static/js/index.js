@@ -42,16 +42,7 @@
         updateTotalPrice();
     }
 
-    function onEditProduct() {
-        API.editProduct(1, state.selectedProduct.id, state.quantity)
-            .then(function (r) {
-                API.getOrder().then(function (data) {
-                    refs.table.update(data);
-                });
 
-                refs.modal.close();
-            });
-    }
 
     /**
      * Agrega un producto a una orden
@@ -97,13 +88,17 @@
     }
     // edita un producto de una orden
     function onEditProduct() {
+<<<<<<< HEAD
         const productId = document.getElementById("select-prod").value;
+=======
+        const productId = document.getElementById('select-prod').value;
+>>>>>>> 6c51bc1c29fb2dee929f8efc725c9f2d30ba11d6
         const product = API.getOrderProduct(1,productId);
 
         API.editProduct(1,productId, state.quantity, product)
             .then(function (r) {
                 if (r.error) {
-                    console.error(r.error);
+                    console.log(r.error);
                 } else {
                     API.getOrder().then(function (data) {
 
@@ -113,6 +108,17 @@
 
                     refs.modal.close();
                 }
+            });
+    }
+    /*
+    function onEditProduct() {
+        API.editProduct(1, state.selectedProduct.id, state.quantity)
+            .then(function () {
+                API.getOrder().then(function (data) {
+                    refs.table.update(data);
+                });
+
+                refs.modal.close();
             });
     }
     /**
