@@ -9,6 +9,7 @@ from app.models import Product, Order, OrderProduct
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class OrderingTestCase(TestCase):
     def create_app(self):
         config_name = 'testing'
@@ -50,29 +51,25 @@ class OrderingTestCase(TestCase):
         p = Product.query.all()
 
 
-        # Verifica que en la lista de productos haya un solo producto
+# Verifica que en la lista de productos haya un solo producto
         self.assertEqual(len(p), 1, "No hay productos")
 
-
     def test_metodoPUT(self):
-       #creo una orden y un producto
+        # creo una orden y un producto
         orden = Order(id=1)
         db.session.add(orden)
         producto = Product(id=1, name='articulo', price=100)
         db.session.add(producto)
-
-    #creo un orderProduct
+        # creo un orderProduct
         orderProduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
         db.session.add(orderProduct)
         db.session.commit()
-
-       #se realiza un cambio en la DB
+        # se realiza un cambio en la DB
         orderProduct = {"quantity": 6, "product": {"id": 1}}
         self.client.put('/order/1/product/1', data=json.dumps(orderProduct), content_type='application/json')
         resp = self.client.get('/order/1/product/1')
         productoA=json.loads(resp.data)
         assert productoA['quantity'] == 6, "fallo el metodo PUT" #si el cambio impacto en la DB se pasa el test
-
 
     def test_totalPrice(self):
         orden = Order(id=1)
@@ -86,8 +83,7 @@ class OrderingTestCase(TestCase):
         productoA = json.loads(resp.data)
         assert productoA['totalPrice'] == 500, "el precio no se calcula correctamente"
 
-
-    def test_delete(self):
+   def test_delete(self):
         orden = Order(id=1)
         db.session.add(orden)
         producto = Product(id=1, name='articulo', price=100)
