@@ -1,5 +1,5 @@
 (function () {
-    const $totalPrice = document.querySelector('#total-price');
+    const $totalPrice = document.querySelector("#total-price");
 
     // Estado de la aplicacion
     const state = {
@@ -7,9 +7,9 @@
         selectedProduct: null,
         quantity: 0,
         order: API.getOrder()
-    }
+    };
 
-    const refs = {}
+    const refs = {};
 
 
     /**
@@ -20,7 +20,7 @@
             const totalPrice = state.selectedProduct.price * state.quantity;
             $totalPrice.innerHTML = `Precio total: $ ${totalPrice}`
         } catch (e) {
-            $totalPrice.innerHTML = '';
+            $totalPrice.innerHTML = "";
         }
     }
 
@@ -95,12 +95,12 @@
             });
 
     }
-      // edita un producto de una orden
+    // edita un producto de una orden
     function onEditProduct() {
-    const productId = document.getElementById('select-prod').value;
-    const product = API.getOrderProduct(1,productId);
+        const productId = document.getElementById("select-prod").value;
+        const product = API.getOrderProduct(1,productId);
 
-           API.editProduct(1,productId, state.quantity, product)
+        API.editProduct(1,productId, state.quantity, product)
             .then(function (r) {
                 if (r.error) {
                     console.error(r.error);

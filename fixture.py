@@ -39,15 +39,15 @@ def addOrders():
             order = Order()
 
             for product in order_data['products']:
-                orderProduct = OrderProduct(quantity=product['quantity'])
-                orderProduct.product = Product.query.get(product['id'])
-                order.products.append(orderProduct)
+                orderproduct = OrderProduct(quantity=product['quantity'])
+                orderproduct.product = Product.query.get(product['id'])
+                order.products.append(orderproduct)
 
             db.session.add(order)
 
         db.session.commit()
 
-def addProducts():
+ def addProducts():
     products = Product.query.all()
     if not products:
         p = Product(name="Silla", price=500)
