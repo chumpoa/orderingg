@@ -38,13 +38,13 @@ const API = (function () {
      *
      */
     function editProduct(orderId, productId, quantity, product) {
-        const data = JSON.stringify({ quantity: quantity, product: product })
+        const data = JSON.stringify({ quantity: quantity, product: product });
 
         return fetch(`/order/${ orderId }/product/${ productId }`,
             {
-                method: 'PUT',
+                method: "PUT",
                 headers: {
-                    'Accept': 'application/json',
+                    "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
                 body: data
@@ -97,9 +97,10 @@ const API = (function () {
             {
                 method: "POST",
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },"application/json"
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: data
             }
         ).then(function toJson(r) {
             return r.json();
@@ -113,5 +114,5 @@ const API = (function () {
         editProduct,
         deleteProduct,
         addProduct
-    }
-})()
+    };
+})();
