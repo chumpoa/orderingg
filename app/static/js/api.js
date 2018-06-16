@@ -92,7 +92,7 @@ const API = (function () {
      * Agrega un producto a una orden
      **/
     function addProduct(orderId, product, quantity) {
-        const data = JSON.stringify({ quantity: quantity, product: product })
+        const data = JSON.stringify({ quantity: quantity, product: product });
 
         return fetch(`/order/${ orderId }/product`,
             {

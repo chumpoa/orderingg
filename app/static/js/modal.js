@@ -8,12 +8,12 @@ const Modal = (function () {
             this.$el = context.querySelector(config.el);
 
             // Nos ponemos a escuchar cambios en el input de cantidad
-            this.$el.addEventListener('input', () => {
+            this.$el.addEventListener("input", () => {
                 if (this.validate()) {
                     config.onChangeQunatity(this.$el.value);
                 }
 
-                this.toggleError()
+                this.toggleError();
             });
 
             return this;
@@ -43,10 +43,10 @@ const Modal = (function () {
          **/
         toggleError: function () {
             const $errorQuantity = this.$el.parentElement
-                .querySelector('.help');
+                .querySelector(".help");
 
-            this.$el.classList.toggle('is-danger', !this.isValid);
-            $errorQuantity.classList.toggle('is-hidden', this.isValid);
+            this.$el.classList.toggle("is-danger", !this.isValid);
+            $errorQuantity.classList.toggle("is-hidden", this.isValid);
         }
     };
 
@@ -109,9 +109,9 @@ const Modal = (function () {
             $saveTitle: $modal.querySelector('#save-title')
         };
 
-        modal.close = close.bind(modal)
-        modal.open = open.bind(modal)
-        modal.openEdit = openEdit.bind(modal)
+        modal.close = close.bind(modal);
+        modal.open = open.bind(modal);
+        modal.openEdit = openEdit.bind(modal);
 
         toggleButtons();
         return modal;

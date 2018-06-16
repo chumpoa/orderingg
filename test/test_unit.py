@@ -44,8 +44,8 @@ class OrderingTestCase(TestCase):
         }
 
         app = 'application/json'
-
-        resp = self.client.post('/product', data=json.dumps(data), content_type=app)
+        p = '/product'
+        resp = self.client.post(p, data=json.dumps(data), content_type=app)
 
         # Verifica que la respuesta tenga el estado 200 (OK)
         self.assert200(resp, "Fallo el POST")
@@ -58,29 +58,31 @@ class OrderingTestCase(TestCase):
 
         orden = Order(id=1)
         db.session.add(orden)
-        producto = Product(id=1, name='articulo', price=100)
-        db.session.add(producto)
+        p = Product(id=1, name='articulo', price=100)
+        db.session.add(p)
 
         # creo un orderProduct
-        orderproduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
-        db.session.add(orderproduct)
+        op = OrderProduct(order_id=1, product_id=1, quantity=5, product=p)
+        db.session.add(op)
         db.session.commit()
 
-       #se realiza un cambio en la DB
-        orderproduct = {"quantity": 6, "product": {"id": 1}}
-        self.client.put('/order/1/product/1', data=json.dumps(orderproduct), content_type='application/json')
+       # se realiza un cambio en la DB
+        op = {"quantity": 6, "product": {"id": 1}}
+        stringa = '/order/1/product/1'
+        stringb = 'application/json'
+        self.client.put(stringa, data=json.dumps(op), content_type=stringb)
         resp = self.client.get('/order/1/product/1')
-        productoA=json.loads(resp.data)
-        assert productoA['quantity'] == 6, "fallo el metodo PUT" #si el cambio impacto en la DB se pasa el test
-
+        productoa = json.loads(resp.data)
+        assert productoa['quantity'] == 6, "fallo el metodo PUT"
+        # si el cambio impacto en la DB se pasa el test
 
     def test_totalPrice(self):
         orden = Order(id=1)
         db.session.add(orden)
-        producto = Product(id=1, name='articulo', price=100)
-        db.session.add(producto)
-        orderproduct = OrderProduct(order_id=1, product_id=1, quantity=5, product=producto)
-        db.session.add(orderproduct)
+        p = Product(id=1, name='articulo', price=100)
+        db.session.add(p)
+        op = OrderProduct(order_id=1, product_id=1, quantity=5, product=p)
+        db.session.add(op)
         db.session.commit()
         resp = self.client.get('/order/1/product/1')
         productoa = json.loads(resp.data)

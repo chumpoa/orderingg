@@ -88,11 +88,7 @@
     }
     // edita un producto de una orden
     function onEditProduct() {
-<<<<<<< HEAD
         const productId = document.getElementById("select-prod").value;
-=======
-        const productId = document.getElementById('select-prod').value;
->>>>>>> 6c51bc1c29fb2dee929f8efc725c9f2d30ba11d6
         const product = API.getOrderProduct(1,productId);
 
         API.editProduct(1,productId, state.quantity, product)
@@ -142,7 +138,7 @@
 
         refs.global = {
             onDeleteProduct
-        }
+        };
     }
 
     init();
