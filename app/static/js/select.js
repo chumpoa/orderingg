@@ -1,5 +1,5 @@
 const Select = (function () {
-    const source = document.getElementById('select-template').innerHTML;
+    const source = document.getElementById("select-template").innerHTML;
     const template = Handlebars.compile(source);
 
     /*
@@ -57,7 +57,7 @@ const Select = (function () {
     }
 
     function enable() {
-        this.$select.removeAttribute("disabled")
+        this.$select.removeAttribute("disabled");
     }
 
     function disable() {

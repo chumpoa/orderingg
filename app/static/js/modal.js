@@ -55,21 +55,21 @@ const Modal = (function () {
      **/
     function init(config) {
         const $modal = document.querySelector(config.el);
-        const $edit = $modal.querySelector('#edit-button');
-        const $save = $modal.querySelector('#save-button');
+        const $edit = $modal.querySelector("#edit-button");
+        const $save = $modal.querySelector("#save-button");
 
         // Inicializamos el input de cantidad
         const $quantity = Quantity.init({
-            el: '#quantity',
+            el: "#quantity",
             onChangeQunatity: function (quantity) {
                 toggleButtons();
-                config.onChangeQunatity(quantity)
+                config.onChangeQunatity(quantity);
             }
         }, $modal);
 
         // Inicializamos el select de productos
         const $select = Select.init({
-            el: '#select',
+            el: "#select",
             data: config.products,
             onSelect: function (product) {
                 toggleButtons();
@@ -82,22 +82,22 @@ const Modal = (function () {
             const isValid = $quantity.isValid && $select.isValid;
 
             if (isValid) {
-                $edit.removeAttribute('disabled');
-                $save.removeAttribute('disabled');
+                $edit.removeAttribute("disabled");
+                $save.removeAttribute("disabled");
             } else {
-                $edit.setAttribute('disabled', 'disabled');
-                $save.setAttribute('disabled', 'disabled');
+                $edit.setAttribute("disabled", "disabled");
+                $save.setAttribute("disabled", "disabled");
             }
         }
 
-        $save.addEventListener('click', function () {
+        $save.addEventListener("click", function () {
             config.onAddProduct().catch(function (err) {
                 $select.showErrorMsg(err.msg);
                 toggleButtons();
             });
         });
 
-        $edit.addEventListener('click', config.onEditProduct);
+        $edit.addEventListener("click", config.onEditProduct);
 
         const modal = {
             $modal,
@@ -105,8 +105,8 @@ const Modal = (function () {
             $quantity,
             $edit,
             $save,
-            $editTitle: $modal.querySelector('#edit-title'),
-            $saveTitle: $modal.querySelector('#save-title')
+            $editTitle: $modal.querySelector("#edit-title"),
+            $saveTitle: $modal.querySelector("#save-title")
         };
 
         modal.close = close.bind(modal);
@@ -121,44 +121,44 @@ const Modal = (function () {
      * Abre el modal en modo agregar
      **/
     function open() {
-        this.$edit.classList.add('is-hidden');
-        this.$editTitle.classList.add('is-hidden');
+        this.$edit.classList.add("is-hidden");
+        this.$editTitle.classList.add("is-hidden");
 
-        this.$save.classList.remove('is-hidden');
-        this.$saveTitle.classList.remove('is-hidden');
+        this.$save.classList.remove("is-hidden");
+        this.$saveTitle.classList.remove("is-hidden");
 
         this.$select.clearSelect();
         this.$select.enable();
         this.$quantity.setValue(1);
 
-        this.$modal.classList.add('is-active');
+        this.$modal.classList.add("is-active");
     }
 
     /**
      * Abre el modal en modo edicion
      **/
     function openEdit(product) {
-        this.$edit.classList.remove('is-hidden');
-        this.$editTitle.classList.remove('is-hidden');
+        this.$edit.classList.remove("is-hidden");
+        this.$editTitle.classList.remove("is-hidden");
 
-        this.$save.classList.add('is-hidden');
-        this.$saveTitle.classList.add('is-hidden');
+        this.$save.classList.add("is-hidden");
+        this.$saveTitle.classList.add("is-hidden");
 
         this.$select.disable();
         this.$select.selectValue(product.id);
         this.$quantity.setValue(product.quantity);
 
-        this.$modal.classList.add('is-active');
+        this.$modal.classList.add("is-active");
     }
 
     /**
      * Cierra el modal
      **/
     function close() {
-        this.$modal.classList.remove('is-active');
+        this.$modal.classList.remove("is-active");
     }
 
     return {
         init
-    }
+    };
 })();
