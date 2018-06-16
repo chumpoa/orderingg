@@ -5,7 +5,7 @@ const API = (function () {
      * @param {Number} orderId id de la orden
      */
     function getOrder(orderId) {
-        return fetch('/order/1')
+        return fetch("/order/1")
             .then(function toJson(r) {
                 return r.json();
             });
@@ -16,7 +16,7 @@ const API = (function () {
      *
      */
     function getProducts() {
-        return fetch('/product')
+        return fetch("/product")
             .then(function toJson(r) {
                 return r.json();
             });
@@ -57,10 +57,10 @@ const API = (function () {
     function deleteProduct(orderId, productId) {
         return fetch(`/order/${ orderId }/product/${ productId }`,
             {
-                method: 'DELETE',
+                method: "DELETE",
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
                 }
             }
         ).then(function toJson(r) {
@@ -76,10 +76,10 @@ const API = (function () {
     function productDelete(orderId,productId) {
         return fetch(`/order/${ orderId }/product/${ productId }`,
             {
-                method: 'DELETE',
+                method: "DELETE",
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
                 },
                 body: data
             }
@@ -96,10 +96,10 @@ const API = (function () {
 
         return fetch(`/order/${ orderId }/product`,
             {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
                 },
                 body: data
             }
