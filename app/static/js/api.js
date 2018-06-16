@@ -80,8 +80,7 @@ const API = (function () {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
-                },
-                body: data
+                }
             }
         ).then(function toJson(r) {
             return r.json();
@@ -98,10 +97,9 @@ const API = (function () {
             {
                 method: "POST",
                 headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: data
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },"application/json"
             }
         ).then(function toJson(r) {
             return r.json();

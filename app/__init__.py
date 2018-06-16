@@ -2,10 +2,10 @@ from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from app.routes import rest
 
 db = SQLAlchemy()
 
-from app.routes import rest
 
 def create_app():
     app = Flask(__name__)
@@ -18,4 +18,3 @@ def create_app():
     from app import models
 
     return app
-
