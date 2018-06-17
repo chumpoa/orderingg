@@ -22,8 +22,8 @@ def products():
     if request.method == 'POST':
         # Crea un nuevo producto recibiendo un JSON con atributos name y price
         # Ejemplo: {'name': 'Tenedor', 'price': 50}
-        nombre = request.get_json()['name']
-        p = Product(name=nombre, price=request.get_json()['price'])
+        rgj = request.get_json
+        p = Product(name=rgj()['name'], price=rgj()['price'])
         db.session.add(p)
         db.session.commit()
         return jsonify(p.serialize)
@@ -56,7 +56,7 @@ def order(pk):
 
     # Si la orden no existe, levantamos el error
     if (not order):
-        return jsonify({'error': 'not-found' }), 404
+        return jsonify({'error': 'not-found'}), 404
 
     return jsonify(order.serialize)
 

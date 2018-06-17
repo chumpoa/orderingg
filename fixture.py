@@ -48,7 +48,8 @@ def addOrders():
 
         db.session.commit()
 
- def addProducts():
+
+def addProducts():
     products = Product.query.all()
     if not products:
         p = Product(name="Silla", price=500)
@@ -60,6 +61,7 @@ def addOrders():
         p = Product(name="Individual", price=250)
         db.session.add(p)
         db.session.commit()
+
 
 if __name__ == '__main__':
     addProducts()

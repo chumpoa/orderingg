@@ -3,6 +3,7 @@ from app import db
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 
+
 class Product(db.Model):
     """
     Clase producto
@@ -29,6 +30,7 @@ class Product(db.Model):
             'price': self.price
         }
 
+
 class Order(db.Model):
     """
     Clase orden
@@ -36,7 +38,6 @@ class Order(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     products = relationship('OrderProduct')
-
 
     def __repr__(self):
         return '<Order {}>'.format(self.id)
@@ -64,12 +65,15 @@ class Order(db.Model):
             'orderPrice': self.orderPrice
         }
 
+
 class OrderProduct(db.Model):
     """
     Clase OrderProduct, tabla transpuesta
     """
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), primary_key=True)
+    fk1 = 'order.id'
+    fk2 = 'product.id'
+    order_id = db.Column(db.Integer, db.ForeignKey(fk1), primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey(fk2), primary_key=True)
     product = relationship('Product')
     quantity = db.Column(db.Integer)
 
