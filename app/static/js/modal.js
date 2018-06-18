@@ -1,3 +1,4 @@
+"""Modal."""
 const Modal = (function () {
 
     const Quantity = {

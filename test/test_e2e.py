@@ -1,4 +1,4 @@
-""" tests de integracion """
+"""tests de integracion."""
 
 import unittest
 import os

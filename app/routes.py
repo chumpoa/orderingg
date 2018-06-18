@@ -1,3 +1,4 @@
+"""Routes."""
 from sqlalchemy import and_
 
 from app import db

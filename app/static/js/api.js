@@ -1,3 +1,4 @@
+"""api."""
 const API = (function () {
     /**
      * Obtiene una orden desde el backend
