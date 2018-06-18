@@ -1,3 +1,4 @@
+"""Models."""
 # coding=utf-8
 from app import db
 from sqlalchemy.orm import relationship

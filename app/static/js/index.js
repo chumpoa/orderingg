@@ -1,3 +1,4 @@
+"""index."""
 (function () {
     const $totalPrice = document.querySelector("#total-price");
 
